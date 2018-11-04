@@ -1,0 +1,72 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div style="text-align:center">
+  <h1 class="title">
+    Où manger en terrasse sans craindre la pollution ?
+  </h1>
+</div>
+ 
+<!-- Déclaration du conteneur de la carte avec l'id "frugalmap" -->
+<div id="frugalmap">
+ 
+</div>
+
+<br>
+
+<div *ngIf="displayTab">
+  <div>
+    <img src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png">
+    <span>Restaurants</span>
+  </div>
+  <div>
+    <img src="https://prospectareachamber.org/wp-content/uploads/2017/12/map-marker-icon-e1512334260964.png">
+    <span>Stations de mesure</span>
+  </div>
+</div>
+
+<br>
+
+<div>
+  <a (click)="scan()" href="#" class="btn btn-1">
+    <span class="txt">Lancer le scan</span>
+    <span class="round"><i class="fa fa-chevron-right"></i></span>
+  </a>
+</div>
+
+<br>
+
+<div *ngIf="displayTab">
+  <table border='1'>
+    <thead>
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Catégorie
+        </th>
+        <th>
+          Adresse
+        </th>
+        <th>
+          Evaluation
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let bestLunch of bestLunchs">
+          <td>
+            {{ bestLunch.nom }}
+          </td>
+          <td>
+            {{ bestLunch.categorie }}
+          </td>
+          <td>
+            {{ bestLunch.adresse }}
+          </td>
+          <td>
+            {{ bestLunch.evaluation }}
+          </td>
+        </tr>
+    </tbody>
+  </table>
