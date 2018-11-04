@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Dataset } from '../js/datasets';
 import * as L from 'leaflet';
 import { markParentViewsForCheck } from '@angular/core/src/view/util';
+import { formatPercent } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
   public infoZone:Array<any> = [];
   public bestLunchs:Array<any> = [];
   public displayTab:boolean = false;
+  public sources:Array<any> = [];
 
   public compteur:number = 0;
 
@@ -101,11 +103,12 @@ export class AppComponent implements OnInit {
   }
 
   getAllData(){
-    this.getRestItems(this.pollutionSets,this.datasetURL.POL.AZOTE);
-    this.getRestItems(this.pollutionSets,this.datasetURL.POL.OZONE);
-    this.getRestItems(this.pollutionSets,this.datasetURL.POL.SOUFRE);
-    this.getRestItems(this.pollutionSets,this.datasetURL.POL.PARTICULES);
-    this.getRestItems(this.datasets,this.datasetURL.RES.LOIRE);
+    // Le forEach de JS ne marchait étrangement pas avec this.datasetURL
+    this.getRestItems(this.pollutionSets,this.datasetURL.POL.AZOTE.data);
+    this.getRestItems(this.pollutionSets,this.datasetURL.POL.OZONE.data);
+    this.getRestItems(this.pollutionSets,this.datasetURL.POL.SOUFRE.data);
+    this.getRestItems(this.pollutionSets,this.datasetURL.POL.PARTICULES.data);
+    this.getRestItems(this.datasets,this.datasetURL.RES.LOIRE.data);
   }
 
   scan(){
@@ -119,7 +122,35 @@ export class AppComponent implements OnInit {
       this.addMarker(element);
     })
 
+    //Affichage des sources
+    this.displaySources();
+
     this.displayTab=true;
+  }
+
+  displaySources(){
+    // Le forEach de JS ne marchait étrangement pas avec this.datasetURL
+    this.sources.push({
+      "nom":this.datasetURL.POL.AZOTE.nom,
+      "url":this.datasetURL.POL.AZOTE.url,
+    })
+    this.sources.push({
+      "nom":this.datasetURL.POL.OZONE.nom,
+      "url":this.datasetURL.POL.OZONE.url,
+    })
+    this.sources.push({
+      "nom":this.datasetURL.POL.SOUFRE.nom,
+      "url":this.datasetURL.POL.SOUFRE.url,
+    })
+    this.sources.push({
+      "nom":this.datasetURL.POL.PARTICULES.nom,
+      "url":this.datasetURL.POL.PARTICULES.url,
+    })
+    this.sources.push({
+      "nom":this.datasetURL.RES.LOIRE.nom,
+      "url":this.datasetURL.RES.LOIRE.url,
+    })
+    console.log(this.sources)
   }
 
   setPollutionInformation(){
