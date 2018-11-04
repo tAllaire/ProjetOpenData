@@ -103,6 +103,7 @@ export class AppComponent implements OnInit {
   }
 
   getAllData(){
+    console.log("Jeu de données utilisées ",this.datasetURL)
     // Le forEach de JS ne marchait étrangement pas avec this.datasetURL
     this.getRestItems(this.pollutionSets,this.datasetURL.POL.AZOTE.data);
     this.getRestItems(this.pollutionSets,this.datasetURL.POL.OZONE.data);
@@ -116,6 +117,8 @@ export class AppComponent implements OnInit {
     this.createMarkers()
     this.createPollutionZones()
     this.setPollutionInformation()
+
+    console.log("Données récupérées ",this.restItems)
 
     //Affichage des résultats
     this.marker.forEach((element)=>{
@@ -150,7 +153,6 @@ export class AppComponent implements OnInit {
       "nom":this.datasetURL.RES.LOIRE.nom,
       "url":this.datasetURL.RES.LOIRE.url,
     })
-    console.log(this.sources)
   }
 
   setPollutionInformation(){
